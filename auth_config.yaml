@@ -1,0 +1,12 @@
+credentials:
+  usernames:
+    paola:
+      name: Paola DIAZGOMEZ
+      password: "$2b$12$A9EKSEp.rCjhpa1rUTa/PO0BZnTo7JROMC0r.GI27o8jfNqjV0lcm"
+    oc:
+      name: OPEN CLASSROOMS
+      password: "$2b$12$Gx9H1kmKxdiq6j6okTRO9ejaSuZyv/7zjIDHs0jSmTiyaa8hF7jnW"
+cookie:
+  expiry_days: 30
+  key: "sldfmlkfoijadnmlqsvmlqjglkjgmlkjgmqlkjv"
+  name: "paola_dashboard_token"
