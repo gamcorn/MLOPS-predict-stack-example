@@ -1,5 +1,6 @@
 
 # Readme
+This repo uses pre-commit hooks, bandit security checks and pylint.
 ## Data Science ML Stack
 In this Exercise I set up a Machine Learning stack with dashboard and prediction 
 capabilities. The stack is composed of a FastAPI backend, a Streamlit front with simple
