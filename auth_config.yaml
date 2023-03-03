@@ -1,12 +1,12 @@
 credentials:
   usernames:
-    paola:
-      name: Paola DIAZGOMEZ
-      password: "$2b$12$A9EKSEp.rCjhpa1rUTa/PO0BZnTo7JROMC0r.GI27o8jfNqjV0lcm"
-    oc:
-      name: OPEN CLASSROOMS
-      password: "$2b$12$Gx9H1kmKxdiq6j6okTRO9ejaSuZyv/7zjIDHs0jSmTiyaa8hF7jnW"
+    one name:
+      name: <a user name>
+      password: "hashed password" # Check streamlit documentation to find out how to hash the password
+    another name:
+      name: <another user name>
+      password: "another hashed password"
 cookie:
-  expiry_days: 30
-  key: "sldfmlkfoijadnmlqsvmlqjglkjgmlkjgmqlkjv"
-  name: "paola_dashboard_token"
+  expiry_days: 1
+  key: "sldfmlkfoijadnmlqsvmlqjglkjgmlkjgmqlkjv" # whatever hash like value for the auth token
+  name: "dashboard_token"
