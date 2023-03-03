@@ -1,4 +1,3 @@
-![Tests](https://github.com/Paola-DGT/ML_Stack_Example/actions/workflows/ci.yml/badge.svg)
 
 # Readme
 ## Data Science ML Stack
