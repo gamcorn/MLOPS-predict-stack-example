@@ -5,6 +5,8 @@ import streamlit as st
 import yaml
 from streamlit_authenticator import Authenticate
 
+from app.settings import conf
+
 
 def dashboard():
     """Main dashboard code"""
@@ -46,7 +48,7 @@ def dashboard():
     if st.button("Calculate"):
         result = requests.request(
             method="POST",
-            url="http://localhost:8080/make_prediction",
+            url=conf.PREDICTION_ENDPOINT,
             headers={"content-type": "application/json"},
             json=data,
             timeout=360,
@@ -59,7 +61,7 @@ def dashboard():
 def load_auth() -> Authenticate:
     """Loads authentication file and creates auth obj."""
 
-    with open("auth_config.yaml", encoding="utf-8") as file:
+    with open(conf.AUTH_FILE_PATH, encoding="utf-8") as file:
         config = yaml.load(file, Loader=yaml.SafeLoader)
 
     authenticator = Authenticate(

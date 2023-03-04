@@ -3,6 +3,7 @@ MlFlow server model prediction scheme.
 """
 # pylint: disable=no-name-in-module, too-few-public-methods
 
+import os
 from typing import Union
 
 import mlflow
@@ -10,6 +11,8 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pandas import DataFrame
 from pydantic import BaseModel
+
+from app.settings import conf
 
 app = FastAPI()
 
@@ -53,11 +56,12 @@ class FormRequest(BaseModel):
 
 def predict_risk(data: DataFrame):
     """Calls the mlflow prediction module with the given model."""
-    mlflow.set_tracking_uri("http://localhost:8968")
-    logged_model = "/volume/p7svr/app/models/PlainRegression_Model"
+    mlflow.set_tracking_uri(conf.MLFLOW_URL)
 
     # Load model as a PyFuncModel.
-    loaded_model = mlflow.pyfunc.load_model(logged_model)
+    loaded_model = mlflow.pyfunc.load_model(
+        os.path.join(conf.SERVER_APP_PATH, conf.LOGGED_MODEL)
+    )
 
     # Predict on a Pandas DataFrame.
     try:
