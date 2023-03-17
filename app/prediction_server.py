@@ -4,7 +4,6 @@ MlFlow server model prediction scheme.
 # pylint: disable=no-name-in-module, too-few-public-methods
 
 import logging
-import os
 from logging.config import dictConfig
 from typing import Union
 
@@ -27,29 +26,6 @@ class FormRequest(BaseModel):
     that are difficult to be performed by streamlit.
     """
 
-    # name: str
-    # lastname: str
-    # age: int
-    # annual_income: int
-    # intended_credit: int
-    # marital_status: str
-    # number_of_children: Optional[int]
-
-    # @validator("age")
-    # # pylint: disable=no-self-argument
-    # def check_age(cls, age: int) -> int:
-    #     """Verifies thage of applicant."""
-    #     if 19 < age > 70:
-    #         raise ValueError("Age is off applicant accepted age policy")
-    #     return age
-    #
-    # @validator("name", "lastname")
-    # def check_name(cls, name: str) -> str:
-    #     """Verifies name and lastname are only alpha chars."""
-    #     re.compile(r"^[a-zA-Z]+$")
-    #     if not re.match(name):
-    #         raise ValueError(f"{name} contains invalid characters")
-    #     return name
     cylinders: Union[float, int]
     displacement: Union[float, int]
     horsepower: Union[float, int]

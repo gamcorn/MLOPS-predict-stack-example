@@ -70,40 +70,38 @@ def dashboard():
             logger.error("Request was not processed by backend")
 
 
-dashboard()
+def load_auth() -> Authenticate:
+    """Loads authentication file and creates auth obj."""
 
-# def load_auth() -> Authenticate:
-#     """Loads authentication file and creates auth obj."""
-#
-#     with open(conf.AUTH_FILE_PATH, encoding="utf-8") as file:
-#         config = yaml.load(file, Loader=yaml.SafeLoader)
-#
-#     authenticator = Authenticate(
-#         config["credentials"],
-#         config["cookie"]["name"],
-#         config["cookie"]["key"],
-#         config["cookie"]["expiry_days"],
-#     )
-#     return authenticator
-#
-#
-# # Start authentication
-# authentic = load_auth()
-#
-#
-# #           PAGE STARTS HERE        #
-# st.title("Simple Regresion Model")
-# st.subheader("City-cycle fuel consumption in miles per gallon")
-#
-# # authentication banner
-# name, authentication_status, username = authentic.login("Login", "main")
-#
-# # if is authenticated we show the dashboard
-# if authentication_status:
-#     authentic.logout("Logout", "main")
-#     st.write(f"Welcome *{name}*")
-#     dashboard()
-# elif authentication_status is False:
-#     st.error("Username/password is incorrect")
-# elif authentication_status is None:
-#     st.warning("Please enter your username and password")
+    with open(conf.AUTH_FILE_PATH, encoding="utf-8") as file:
+        config = yaml.load(file, Loader=yaml.SafeLoader)
+
+    authenticator = Authenticate(
+        config["credentials"],
+        config["cookie"]["name"],
+        config["cookie"]["key"],
+        config["cookie"]["expiry_days"],
+    )
+    return authenticator
+
+
+# Start authentication
+authentic = load_auth()
+
+
+#           PAGE STARTS HERE        #
+st.title("Simple Regresion Model")
+st.subheader("City-cycle fuel consumption in miles per gallon")
+
+# authentication banner
+name, authentication_status, username = authentic.login("Login", "main")
+
+# if is authenticated we show the dashboard
+if authentication_status:
+    authentic.logout("Logout", "main")
+    st.write(f"Welcome *{name}*")
+    dashboard()
+elif authentication_status is False:
+    st.error("Username/password is incorrect")
+elif authentication_status is None:
+    st.warning("Please enter your username and password")
