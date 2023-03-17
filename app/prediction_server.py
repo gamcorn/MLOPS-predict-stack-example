@@ -3,6 +3,7 @@ MlFlow server model prediction scheme.
 """
 # pylint: disable=no-name-in-module, too-few-public-methods
 
+
 import logging
 from logging.config import dictConfig
 from typing import Union
@@ -19,6 +20,7 @@ dictConfig(log_conf.dict())
 logger = logging.getLogger("ml-app")
 
 app = FastAPI(debug=True)
+
 
 
 class FormRequest(BaseModel):
