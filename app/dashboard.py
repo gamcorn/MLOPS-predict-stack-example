@@ -1,11 +1,17 @@
 """THis is the dashboard module of the risk prediction app."""
+import json
+import logging
+from logging.config import dictConfig
 
 import requests
 import streamlit as st
 import yaml
 from streamlit_authenticator import Authenticate
 
-from app.settings import conf
+from app.settings import conf, log_conf
+
+dictConfig(log_conf.dict())
+logger = logging.getLogger("ml-app")
 
 
 def dashboard():
@@ -46,6 +52,7 @@ def dashboard():
     }
 
     if st.button("Calculate"):
+        json_data = json.dumps(data)
         result = requests.request(
             method="POST",
             url=conf.PREDICTION_ENDPOINT,
@@ -53,9 +60,14 @@ def dashboard():
             json=data,
             timeout=360,
         )
-
+        logger.info("Sending request with data: %s", data)
         if result.status_code == 200:
             st.success(f"Score = {result.content.decode()}")
+        else:
+            st.error(
+                f"Request was not processed by backend, error_code {result.status_code}"
+            )
+            logger.error("Request was not processed by backend")
 
 
 def load_auth() -> Authenticate:
