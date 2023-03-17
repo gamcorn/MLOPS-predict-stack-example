@@ -3,7 +3,9 @@ MlFlow server model prediction scheme.
 """
 # pylint: disable=no-name-in-module, too-few-public-methods
 
+import logging
 import os
+from logging.config import dictConfig
 from typing import Union
 
 import mlflow
@@ -12,9 +14,12 @@ from fastapi import FastAPI, HTTPException
 from pandas import DataFrame
 from pydantic import BaseModel
 
-from app.settings import conf
+from app.settings import conf, log_conf
 
-app = FastAPI()
+dictConfig(log_conf.dict())
+logger = logging.getLogger("ml-app")
+
+app = FastAPI(debug=True)
 
 
 class FormRequest(BaseModel):
@@ -59,9 +64,7 @@ def predict_risk(data: DataFrame):
     mlflow.set_tracking_uri(conf.MLFLOW_URL)
 
     # Load model as a PyFuncModel.
-    loaded_model = mlflow.pyfunc.load_model(
-        os.path.join(conf.SERVER_APP_PATH, conf.LOGGED_MODEL)
-    )
+    loaded_model = mlflow.pyfunc.load_model(conf.LOGGED_MODEL)
 
     # Predict on a Pandas DataFrame.
     try:
@@ -73,5 +76,6 @@ def predict_risk(data: DataFrame):
 @app.post("/make_prediction")
 async def calculate_risk(form_request: FormRequest):
     """Prepares data from user and gets a prediction."""
+    logger.info("Entering backend with data: %s", form_request.dict())
     data = pd.DataFrame(form_request.dict(), index=[0])
     return predict_risk(data)[0]
